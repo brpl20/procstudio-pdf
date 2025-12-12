@@ -23,7 +23,6 @@ COPY gradlew .
 COPY gradle gradle/
 COPY app/core/build.gradle core/.
 COPY app/common/build.gradle common/.
-COPY app/proprietary/build.gradle proprietary/.
 RUN ./gradlew build -x spotlessApply -x spotlessCheck -x test -x sonarqube || return 0
 
 WORKDIR /app
@@ -40,15 +39,11 @@ FROM alpine:3.22.1
 ARG VERSION_TAG
 
 # Labels
-LABEL org.opencontainers.image.title="Stirling-PDF Unified"
-LABEL org.opencontainers.image.description="Unified container for Stirling-PDF - Frontend + Backend with MODE parameter"
-LABEL org.opencontainers.image.source="https://github.com/Stirling-Tools/Stirling-PDF"
+LABEL org.opencontainers.image.title="ProcStudio PDF"
+LABEL org.opencontainers.image.description="Open-source PDF processing platform - based on Stirling-PDF (MIT-licensed components)"
+LABEL org.opencontainers.image.source="https://github.com/yourusername/procstudio-pdf"
 LABEL org.opencontainers.image.licenses="MIT"
-LABEL org.opencontainers.image.vendor="Stirling-Tools"
-LABEL org.opencontainers.image.url="https://www.stirlingpdf.com"
-LABEL org.opencontainers.image.documentation="https://docs.stirlingpdf.com"
-LABEL maintainer="Stirling-Tools"
-LABEL org.opencontainers.image.authors="Stirling-Tools"
+LABEL org.opencontainers.image.vendor="ProcStudio"
 LABEL org.opencontainers.image.version="${VERSION_TAG}"
 LABEL org.opencontainers.image.keywords="PDF, manipulation, unified, API, Spring Boot, React"
 

@@ -38,7 +38,7 @@ ext.isSecurityDisabled = { ->
 jar {
     enabled = false
     manifest {
-        attributes "Implementation-Title": "Stirling-PDF",
+        attributes "Implementation-Title": "ProcStudio-PDF",
             "Implementation-Version": project.version
     }
 }
@@ -58,8 +58,8 @@ repositories {
 }
 
 allprojects {
-    group = 'stirling.software'
-    version = '2.1.3'
+    group = 'com.procstudio'
+    version = '1.0.0'
 
     configurations.configureEach {
         exclude group: 'commons-logging', module: 'commons-logging'
@@ -96,18 +96,29 @@ def updateSimulationVersion(File fileToUpdate, String version) {
 
 tasks.register('syncAppVersion') {
     group = 'versioning'
-    description = 'Synchronizes app version across desktop and simulation configs.'
+    description = 'Synchronizes app version across simulation configs (Tauri removed in ProcStudio fork).'
 
     doLast {
         def appVersion = project.version.toString()
         println "Synchronizing application version to ${appVersion}"
-        updateTauriConfigVersion(appVersion)
+
+        // Skip Tauri config - desktop app removed in ProcStudio fork
+        def tauriConfig = file('frontend/src-tauri/tauri.conf.json')
+        if (tauriConfig.exists()) {
+            updateTauriConfigVersion(appVersion)
+        } else {
+            println "Skipping Tauri config - desktop app not present"
+        }
 
         [
-            'frontend/src/core/testing/serverExperienceSimulations.ts',
-            'frontend/src/proprietary/testing/serverExperienceSimulations.ts'
+            'frontend/src/core/testing/serverExperienceSimulations.ts'
         ].each { path ->
-            updateSimulationVersion(file(path), appVersion)
+            def fileToUpdate = file(path)
+            if (fileToUpdate.exists()) {
+                updateSimulationVersion(fileToUpdate, appVersion)
+            } else {
+                println "Skipping ${path} - file does not exist"
+            }
         }
     }
 }
@@ -225,7 +236,6 @@ subprojects {
 
         tasks.named("forkedSpringBootRun") {
             dependsOn(":common:jar")
-            dependsOn(":proprietary:jar")
         }
 
         tasks.register("copySwaggerDoc", Copy) {
@@ -324,9 +334,6 @@ swaggerhubUpload {
 dependencies {
     implementation project(':stirling-pdf')
     implementation project(':common')
-    if (rootProject.ext.isSecurityDisabled()) {
-        implementation project(':proprietary')
-    }
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly "org.junit.platform:junit-platform-launcher:$junitPlatformVersion"

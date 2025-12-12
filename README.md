@@ -1,69 +1,208 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Stirling-Tools/Stirling-PDF/main/docs/stirling.png" width="80" alt="Stirling PDF logo">
-</p>
+# ProcStudio PDF
 
-<h1 align="center">Stirling PDF - The Open-Source PDF Platform</h1>
+ProcStudio PDF is a powerful, open-source PDF editing platform based on [Stirling-PDF](https://github.com/Stirling-Tools/Stirling-PDF). Edit, sign, redact, convert, and automate PDFs without sending documents to external services.
 
-Stirling PDF is a powerful, open-source PDF editing platform. Run it as a personal desktop app, in the browser, or deploy it on your own servers with a private API. Edit, sign, redact, convert, and automate PDFs without sending documents to external services.
+## Overview
 
-<p align="center">
-  <a href="https://hub.docker.com/r/stirlingtools/stirling-pdf">
-    <img src="https://img.shields.io/docker/pulls/frooodle/s-pdf" alt="Docker Pulls">
-  </a>
-  <a href="https://discord.gg/HYmhKj45pU">
-    <img src="https://img.shields.io/discord/1068636748814483718?label=Discord" alt="Discord">
-  </a>
-  <a href="https://scorecard.dev/viewer/?uri=github.com/Stirling-Tools/Stirling-PDF">
-    <img src="https://api.scorecard.dev/projects/github.com/Stirling-Tools/Stirling-PDF/badge" alt="OpenSSF Scorecard">
-  </a>
-  <a href="https://github.com/Stirling-Tools/stirling-pdf">
-    <img src="https://img.shields.io/github/stars/stirling-tools/stirling-pdf?style=social" alt="GitHub Repo stars">
-  </a>
-</p>
+This is a clean fork of Stirling-PDF using only MIT-licensed components. Enterprise and proprietary features have been removed to create a fully open-source PDF processing platform.
 
-![Stirling PDF - Dashboard](images/home-light.png)
+## Key Features
 
-## Key Capabilities
-
-- **Everywhere you work** - Desktop client, browser UI, and self-hosted server with a private API.
-- **50+ PDF tools** - Edit, merge, split, sign, redact, convert, OCR, compress, and more.
-- **Automation & workflows** - No-code pipelines direct in UI with APIs to process millions of PDFs.
-- **Enterprise‑grade** - SSO, auditing, and flexible on‑prem deployments.
-- **Developer platform** - REST APIs available for nearly all tools to integrate into your existing systems.
-- **Global UI** - Interface available in 40+ languages.
-
-For a full feature list, see the docs: **https://docs.stirlingpdf.com**
+- **50+ PDF Tools** - Merge, split, rotate, compress, OCR, watermark, and more
+- **Conversion** - Office to PDF, PDF to images, HTML to PDF
+- **Security** - Password protect, remove passwords, redact content
+- **Forms** - Fill and flatten PDF forms
+- **Automation** - Create processing pipelines with REST APIs
+- **Multi-language** - Interface available in 40+ languages
+- **Self-hosted** - Run locally or deploy on your own servers
 
 ## Quick Start
 
+### Docker
+
 ```bash
-docker run -p 8080:8080 docker.stirlingpdf.com/stirlingtools/stirling-pdf
+docker build -t procstudio-pdf:latest .
+docker run -p 8080:8080 procstudio-pdf:latest
 ```
 
 Then open: http://localhost:8080
 
-For full installation options (including desktop and Kubernetes), see our [Documentation Guide](https://docs.stirlingpdf.com/#documentation-guide).
+### Local Development
 
-## Resources
+**Requirements:**
+- Java 17+ (Java 21 recommended)
+- Node.js 18+ (for frontend development)
 
-- [**Documentation**](https://docs.stirlingpdf.com)
-- [**Homepage**](https://stirling.com)
-- [**API Docs**](https://registry.scalar.com/@stirlingpdf/apis/stirling-pdf-processing-api/)
-- [**Server Plan & Enterprise**](https://docs.stirlingpdf.com/Paid-Offerings)
+**Backend:**
+```bash
+./gradlew clean build
+./gradlew bootRun
+```
 
-## Support
+**Frontend Development:**
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-- **Community** [Discord](https://discord.gg/HYmhKj45pU)
-- **Bug Reports**: [Github issues](https://github.com/Stirling-Tools/Stirling-PDF/issues)
+## Architecture
 
-## Contributing
+- **Backend**: Spring Boot with PDFBox, LibreOffice integration
+- **Frontend**: React + Vite + TypeScript + Mantine UI
+- **PDF Processing**: PDFBox, PDF.js for rendering
+- **Storage**: H2 database, IndexedDB for client-side caching
+- **Deployment**: Docker (ultra-lite, standard, fat variants)
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+## Available PDF Tools
 
-For development setup, see the [Developer Guide](DeveloperGuide.md).
+### Conversion
+- Office documents to PDF
+- PDF to images (PNG, JPG, TIFF)
+- HTML to PDF
 
-For adding translations, see the [Translation Guide](devGuide/HowToAddNewLanguage.md).
+### Page Operations
+- Merge multiple PDFs
+- Split PDFs by page or range
+- Rotate pages
+- Extract specific pages
+- Reorder pages
+
+### Manipulation
+- Compress PDFs
+- OCR (extract text from scanned documents)
+- Add/remove pages
+- Add images and watermarks
+- Add text overlays
+
+### Security
+- Password protect PDFs
+- Remove password protection
+- Redact sensitive content
+- Edit metadata
+
+### Forms & Metadata
+- Fill PDF forms
+- Flatten forms
+- Edit PDF metadata
+- Repair corrupted PDFs
+
+### Automation
+- REST APIs for all operations
+- Pipeline workflows
+- Batch processing
+
+## Configuration
+
+Configuration options are in `app/core/src/main/resources/application.properties`.
+
+Key settings:
+- `server.servlet.context-path` - Base URL path
+- `spring.servlet.multipart.max-file-size` - Max upload size (default: 2000MB)
+- `DOCKER_ENABLE_SECURITY` - Enable authentication (default: false)
+
+## Development
+
+See [CLAUDE.md](CLAUDE.md) for detailed development instructions including:
+- Build commands
+- Testing strategies
+- Docker development
+- Frontend architecture
+- Tool development patterns
 
 ## License
 
-Stirling PDF is open-core. See [LICENSE](LICENSE) for details.
+ProcStudio PDF is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
+**Based on Stirling-PDF** by Stirling Tools
+Original project: https://github.com/Stirling-Tools/Stirling-PDF
+
+## Attribution
+
+This project is a fork of Stirling-PDF, using only the MIT-licensed core components. All proprietary features have been removed to create a fully open-source alternative.
+
+We thank the Stirling-PDF team and community for creating the excellent foundation that makes this project possible.
+
+## Contributing
+
+Contributions are welcome! Please follow these guidelines:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests: `./gradlew test`
+5. Format code: `./gradlew spotlessApply`
+6. Submit a pull request
+
+## Support
+
+- **Issues**: [GitHub Issues](https://github.com/yourusername/procstudio-pdf/issues)
+- **Documentation**: See [CLAUDE.md](CLAUDE.md) for technical details
+
+## Deployment Options
+
+### Docker Variants
+
+**Ultra-lite** (minimal dependencies):
+```bash
+docker build -t procstudio-pdf:ultra-lite -f ./Dockerfile.ultra-lite .
+```
+
+**Standard** (full features):
+```bash
+docker build -t procstudio-pdf:latest -f ./Dockerfile .
+```
+
+**Fat** (air-gapped, includes all dependencies):
+```bash
+docker build -t procstudio-pdf:fat -f ./Dockerfile.fat .
+```
+
+### Environment Variables
+
+- `DOCKER_ENABLE_SECURITY` - Enable authentication (true/false)
+- `SYSTEM_ROOTURIPATH` - Base path for deployment (e.g., `/pdf`)
+- `SYSTEM_CONNECTIONTIMEOUTMILLISECONDS` - Request timeout (default: 1200000)
+
+## API Documentation
+
+API documentation is auto-generated and available at:
+- Swagger UI: `http://localhost:8080/swagger-ui.html`
+- OpenAPI JSON: `http://localhost:8080/v1/api-docs`
+
+## What's Different from Stirling-PDF?
+
+**Removed:**
+- Proprietary enterprise features
+- Desktop application (Tauri builds)
+- SSO/SAML authentication
+- Advanced user management
+- Audit logging
+- Stripe integration
+- Licensed signature features
+
+**Kept (MIT Licensed):**
+- All core PDF processing tools
+- REST API endpoints
+- React frontend with FileContext architecture
+- Multi-language support
+- Docker deployment
+- Pipeline automation
+- Basic authentication (optional)
+
+## Roadmap
+
+This is a community-driven fork. Future development depends on contributor interests and needs.
+
+Potential areas for enhancement:
+- Additional PDF processing tools
+- Improved UI/UX customization
+- Enhanced batch processing
+- Custom plugin system
+- Additional export formats
+
+## Version
+
+Current version: 1.0.0
+
+Based on Stirling-PDF v2.1.3 (MIT-licensed components only)

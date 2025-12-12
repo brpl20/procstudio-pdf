@@ -2,10 +2,9 @@ plugins {
     // Apply the foojay-resolver plugin to allow automatic download of JDKs
     id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
-rootProject.name = 'Stirling PDF'
+rootProject.name = 'ProcStudio PDF'
 
-include 'stirling-pdf', 'common', 'proprietary'
+include 'stirling-pdf', 'common'
 
 project(':stirling-pdf').projectDir = file('app/core')
 project(':common'      ).projectDir = file('app/common')
-project(':proprietary' ).projectDir = file('app/proprietary')
