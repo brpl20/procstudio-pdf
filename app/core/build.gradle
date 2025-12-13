@@ -50,11 +50,12 @@ dependencies {
         implementation 'org.openjfx:javafx-swing:21'
     }
 
-    if (System.getenv('DISABLE_ADDITIONAL_FEATURES') != 'true'
-        || (project.hasProperty('DISABLE_ADDITIONAL_FEATURES')
-        && System.getProperty('DISABLE_ADDITIONAL_FEATURES') != 'true')) {
-        implementation project(':proprietary')
-    }
+    // Proprietary module removed in this fork - MIT-licensed components only
+    // if (System.getenv('DISABLE_ADDITIONAL_FEATURES') != 'true'
+    //     || (project.hasProperty('DISABLE_ADDITIONAL_FEATURES')
+    //     && System.getProperty('DISABLE_ADDITIONAL_FEATURES') != 'true')) {
+    //     implementation project(':proprietary')
+    // }
 
     implementation project(':common')
     implementation 'org.springframework.boot:spring-boot-starter-jetty'
@@ -283,4 +284,5 @@ if (buildWithFrontend) {
 }
 
 bootJar.dependsOn ':common:jar'
-bootJar.dependsOn ':proprietary:jar'
+// Proprietary module removed in this fork
+// bootJar.dependsOn ':proprietary:jar'

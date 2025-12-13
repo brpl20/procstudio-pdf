@@ -1,20 +1,20 @@
-# Example Docker Compose for Unified Stirling-PDF Container
+# Example Docker Compose for Unified ProcStudio PDF Container
 # MODE=BOTH (default): Frontend + Backend in single container on port 8080
 
 services:
-  stirling-pdf-unified:
-    container_name: Stirling-PDF-Unified-Both
+  procstudio-pdf-unified:
+    container_name: ProcStudio-PDF-Unified-Both
     build:
       context: ../..
       dockerfile: docker/Dockerfile.unified
     ports:
       - "8080:8080"
     volumes:
-      - ./stirling/data:/usr/share/tessdata:rw
-      - ./stirling/config:/configs:rw
-      - ./stirling/logs:/logs:rw
-      - ./stirling/customFiles:/customFiles:rw
-      - ./stirling/pipeline:/pipeline:rw
+      - ./procstudio/data:/usr/share/tessdata:rw
+      - ./procstudio/config:/configs:rw
+      - ./procstudio/logs:/logs:rw
+      - ./procstudio/customFiles:/customFiles:rw
+      - ./procstudio/pipeline:/pipeline:rw
     environment:
       # MODE parameter: BOTH (default), FRONTEND, or BACKEND
       MODE: BOTH
@@ -22,7 +22,7 @@ services:
       # Backend runs internally on this port when MODE=BOTH
       BACKEND_INTERNAL_PORT: 8081
 
-      # Standard Stirling-PDF configuration
+      # Standard ProcStudio PDF configuration
       DISABLE_ADDITIONAL_FEATURES: "false"
       DOCKER_ENABLE_SECURITY: "false"
       PUID: 1000
@@ -31,7 +31,7 @@ services:
 
       # Application settings
       SYSTEM_DEFAULTLOCALE: en-US
-      UI_APPNAME: Stirling-PDF
+      UI_APPNAME: ProcStudio PDF
       UI_HOMEDESCRIPTION: Your locally hosted one-stop-shop for all your PDF needs
       SYSTEM_MAXFILESIZE: "100"
       METRICS_ENABLED: "true"

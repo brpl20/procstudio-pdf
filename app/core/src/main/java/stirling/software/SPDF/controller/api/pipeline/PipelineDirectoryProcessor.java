@@ -32,6 +32,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import stirling.software.SPDF.model.PipelineConfig;
 import stirling.software.SPDF.model.PipelineOperation;
 import stirling.software.SPDF.model.PipelineResult;
@@ -52,12 +54,13 @@ public class PipelineDirectoryProcessor {
     private final String watchedFoldersDir;
     private final String finishedFoldersDir;
 
+    @Autowired
     public PipelineDirectoryProcessor(
             ObjectMapper objectMapper,
             ApiDocService apiDocService,
             PipelineProcessor processor,
             FileMonitor fileMonitor,
-            PostHogService postHogService,
+            @Autowired(required = false) PostHogService postHogService,
             RuntimePathConfig runtimePathConfig) {
         this.objectMapper = objectMapper;
         this.apiDocService = apiDocService;
@@ -160,7 +163,9 @@ public class PipelineDirectoryProcessor {
             Map<String, Object> properties = new HashMap<>();
             properties.put("operations", operationNames);
             properties.put("fileCount", files.length);
-            postHogService.captureEvent("pipeline_directory_event", properties);
+            if (postHogService != null) {
+                postHogService.captureEvent("pipeline_directory_event", properties);
+            }
 
             List<File> filesToProcess = prepareFilesForProcessing(files, processingDir);
             runPipelineAgainstFiles(filesToProcess, config, dir, processingDir);

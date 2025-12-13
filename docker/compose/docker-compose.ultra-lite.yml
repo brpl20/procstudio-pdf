@@ -3,7 +3,7 @@ services:
     build:
       context: ../..
       dockerfile: docker/backend/Dockerfile.ultra-lite
-    container_name: stirling-pdf-backend-ultra-lite
+    container_name: procstudio-pdf-backend-ultra-lite
     restart: on-failure:5
     deploy:
       resources:
@@ -19,26 +19,26 @@ services:
     expose:
       - "8080"
     volumes:
-      - ../../stirling/latest/config:/configs:rw
-      - ../../stirling/latest/logs:/logs:rw
+      - ../../procstudio/latest/config:/configs:rw
+      - ../../procstudio/latest/logs:/logs:rw
     environment:
       DISABLE_ADDITIONAL_FEATURES: "true"
       SECURITY_ENABLELOGIN: "false"
       ENDPOINTS_GROUPS_TO_REMOVE: "CLI"
       LANGS: "en_GB,en_US"
       SYSTEM_DEFAULTLOCALE: en-US
-      UI_APPNAME: Stirling-PDF
-      UI_HOMEDESCRIPTION: Ultra-lite version of Stirling-PDF
-      UI_APPNAMENAVBAR: Stirling-PDF Ultra-lite
+      UI_APPNAME: ProcStudio PDF
+      UI_HOMEDESCRIPTION: Ultra-lite version of ProcStudio PDF
+      UI_APPNAMENAVBAR: ProcStudio PDF Ultra-lite
       SYSTEM_MAXFILESIZE: "50"
     networks:
-      - stirling-network
+      - procstudio-network
 
   frontend:
     build:
       context: ../..
       dockerfile: docker/frontend/Dockerfile
-    container_name: stirling-pdf-frontend-ultra-lite
+    container_name: procstudio-pdf-frontend-ultra-lite
     restart: on-failure:5
     ports:
       - "3000:80"
@@ -50,8 +50,8 @@ services:
     depends_on:
       - backend
     networks:
-      - stirling-network
+      - procstudio-network
 
 networks:
-  stirling-network:
+  procstudio-network:
     driver: bridge

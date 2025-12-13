@@ -20,8 +20,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.swagger.v3.oas.annotations.Operation;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import stirling.software.SPDF.config.swagger.MultiFileResponse;
 import stirling.software.SPDF.model.PipelineConfig;
@@ -36,7 +37,6 @@ import stirling.software.common.util.WebResponseUtils;
 
 @PipelineApi
 @Slf4j
-@RequiredArgsConstructor
 public class PipelineController {
 
     private final PipelineProcessor processor;
@@ -44,6 +44,16 @@ public class PipelineController {
     private final ObjectMapper objectMapper;
 
     private final PostHogService postHogService;
+
+    @Autowired
+    public PipelineController(
+            PipelineProcessor processor,
+            ObjectMapper objectMapper,
+            @Autowired(required = false) PostHogService postHogService) {
+        this.processor = processor;
+        this.objectMapper = objectMapper;
+        this.postHogService = postHogService;
+    }
 
     @AutoJobPostMapping(value = "/handleData", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @MultiFileResponse
@@ -70,7 +80,9 @@ public class PipelineController {
         properties.put("operations", operationNames);
         properties.put("fileCount", files.length);
 
-        postHogService.captureEvent("pipeline_api_event", properties);
+        if (postHogService != null) {
+            postHogService.captureEvent("pipeline_api_event", properties);
+        }
 
         try {
             List<Resource> inputFiles = processor.generateInputFiles(files);

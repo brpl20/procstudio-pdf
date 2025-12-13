@@ -1,20 +1,20 @@
-# Example Docker Compose for Unified Stirling-PDF Container
+# Example Docker Compose for Unified ProcStudio PDF Container
 # MODE=FRONTEND: Frontend only, connects to separate backend
 
 services:
-  stirling-pdf-backend:
-    container_name: Stirling-PDF-Backend
+  procstudio-pdf-backend:
+    container_name: ProcStudio-PDF-Backend
     build:
       context: ../..
       dockerfile: docker/Dockerfile.unified
     ports:
       - "8081:8080"
     volumes:
-      - ./stirling/data:/usr/share/tessdata:rw
-      - ./stirling/config:/configs:rw
-      - ./stirling/logs:/logs:rw
-      - ./stirling/customFiles:/customFiles:rw
-      - ./stirling/pipeline:/pipeline:rw
+      - ./procstudio/data:/usr/share/tessdata:rw
+      - ./procstudio/config:/configs:rw
+      - ./procstudio/logs:/logs:rw
+      - ./procstudio/customFiles:/customFiles:rw
+      - ./procstudio/pipeline:/pipeline:rw
     environment:
       MODE: BACKEND
       DISABLE_ADDITIONAL_FEATURES: "false"
@@ -33,8 +33,8 @@ services:
         limits:
           memory: 4G
 
-  stirling-pdf-frontend:
-    container_name: Stirling-PDF-Frontend
+  procstudio-pdf-frontend:
+    container_name: ProcStudio-PDF-Frontend
     build:
       context: ../..
       dockerfile: docker/Dockerfile.unified
@@ -44,13 +44,13 @@ services:
       MODE: FRONTEND
 
       # Point to the backend service
-      VITE_API_BASE_URL: http://stirling-pdf-backend:8080
+      VITE_API_BASE_URL: http://procstudio-pdf-backend:8080
 
       # Minimal config needed for frontend
       PUID: 1000
       PGID: 1000
     depends_on:
-      - stirling-pdf-backend
+      - procstudio-pdf-backend
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/ || exit 1"]

@@ -205,11 +205,11 @@ public class SPDFApplication {
         int actualPort = event.getWebServer().getPort();
         serverPortStatic = String.valueOf(actualPort);
         // Log the actual runtime port for Tauri to parse
-        log.info("Stirling-PDF running on port: {}", actualPort);
+        log.info("ProcStudio PDF running on port: {}", actualPort);
     }
 
     private static void printStartupLogs() {
-        log.info("Stirling-PDF Started.");
+        log.info("ProcStudio PDF Started.");
         String url = baseUrlStatic + ":" + getStaticPort() + contextPathStatic;
         log.info("Navigate to {}", url);
     }

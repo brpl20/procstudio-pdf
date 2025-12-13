@@ -4,25 +4,34 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.search.Search;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import stirling.software.SPDF.config.EndpointInspector;
 import stirling.software.common.service.PostHogService;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class MetricsAggregatorService {
     private final MeterRegistry meterRegistry;
     private final PostHogService postHogService;
     private final EndpointInspector endpointInspector;
+
+    @Autowired
+    public MetricsAggregatorService(
+            MeterRegistry meterRegistry,
+            @Autowired(required = false) PostHogService postHogService,
+            EndpointInspector endpointInspector) {
+        this.meterRegistry = meterRegistry;
+        this.postHogService = postHogService;
+        this.endpointInspector = endpointInspector;
+    }
     private final Map<String, Double> lastSentMetrics = new ConcurrentHashMap<>();
 
     @Scheduled(fixedRate = 7200000) // Run every 2 hours
@@ -81,8 +90,7 @@ public class MetricsAggregatorService {
                             }
                         });
         // Send aggregated metrics to PostHog
-        if (!metrics.isEmpty()) {
-
+        if (!metrics.isEmpty() && postHogService != null) {
             postHogService.captureEvent("aggregated_metrics", metrics);
         }
     }

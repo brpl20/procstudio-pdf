@@ -8,7 +8,6 @@ COPY gradlew .
 COPY gradle gradle/
 COPY app/core/build.gradle core/.
 COPY app/common/build.gradle common/.
-COPY app/proprietary/build.gradle proprietary/.
 RUN ./gradlew build -x spotlessApply -x spotlessCheck -x test -x sonarqube || return 0
 
 # Set the working directory
@@ -31,15 +30,13 @@ COPY app/core/src/main/resources/static/fonts/*.ttf /usr/share/fonts/opentype/no
 
 ARG VERSION_TAG
 
-LABEL org.opencontainers.image.title="Stirling-PDF Backend"
-LABEL org.opencontainers.image.description="Backend service for Stirling-PDF - Java Spring Boot with PDF processing capabilities"
-LABEL org.opencontainers.image.source="https://github.com/Stirling-Tools/Stirling-PDF"
+LABEL org.opencontainers.image.title="ProcStudio PDF Backend"
+LABEL org.opencontainers.image.description="Backend service for ProcStudio PDF - Java Spring Boot with PDF processing capabilities"
+LABEL org.opencontainers.image.source="https://github.com/procstudio/procstudio-pdf"
 LABEL org.opencontainers.image.licenses="MIT"
-LABEL org.opencontainers.image.vendor="Stirling-Tools"
-LABEL org.opencontainers.image.url="https://www.stirlingpdf.com"
-LABEL org.opencontainers.image.documentation="https://docs.stirlingpdf.com"
-LABEL maintainer="Stirling-Tools"
-LABEL org.opencontainers.image.authors="Stirling-Tools"
+LABEL org.opencontainers.image.vendor="ProcStudio"
+LABEL maintainer="ProcStudio"
+LABEL org.opencontainers.image.authors="ProcStudio"
 LABEL org.opencontainers.image.version="${VERSION_TAG}"
 LABEL org.opencontainers.image.keywords="PDF, manipulation, backend, API, Spring Boot"
 

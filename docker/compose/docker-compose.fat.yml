@@ -3,7 +3,7 @@ services:
     build:
       context: ../..
       dockerfile: docker/backend/Dockerfile.fat
-    container_name: stirling-pdf-backend-fat
+    container_name: procstudio-pdf-backend-fat
     restart: on-failure:5
     deploy:
       resources:
@@ -19,29 +19,29 @@ services:
     expose:
       - "8080"
     volumes:
-      - ../../stirling/latest/data:/usr/share/tessdata:rw
-      - ../../stirling/latest/config:/configs:rw
-      - ../../stirling/latest/logs:/logs:rw
+      - ../../procstudio/latest/data:/usr/share/tessdata:rw
+      - ../../procstudio/latest/config:/configs:rw
+      - ../../procstudio/latest/logs:/logs:rw
     environment:
       DISABLE_ADDITIONAL_FEATURES: "false"
       SECURITY_ENABLELOGIN: "false"
       FAT_DOCKER: "true"
       SYSTEM_DEFAULTLOCALE: en-US
-      UI_APPNAME: Stirling-PDF
-      UI_HOMEDESCRIPTION: Full-featured Stirling-PDF with all capabilities
-      UI_APPNAMENAVBAR: Stirling-PDF Fat
+      UI_APPNAME: ProcStudio PDF
+      UI_HOMEDESCRIPTION: Full-featured ProcStudio PDF with all capabilities
+      UI_APPNAMENAVBAR: ProcStudio PDF Fat
       SYSTEM_MAXFILESIZE: "200"
       METRICS_ENABLED: "true"
       SYSTEM_GOOGLEVISIBILITY: "true"
       SHOW_SURVEY: "true"
     networks:
-      - stirling-network
+      - procstudio-network
 
   frontend:
     build:
       context: ../..
       dockerfile: docker/frontend/Dockerfile
-    container_name: stirling-pdf-frontend-fat
+    container_name: procstudio-pdf-frontend-fat
     restart: on-failure:5
     ports:
       - "3000:80"
@@ -53,13 +53,13 @@ services:
     depends_on:
       - backend
     networks:
-      - stirling-network
+      - procstudio-network
 
 networks:
-  stirling-network:
+  procstudio-network:
     driver: bridge
 
 volumes:
-  stirling-data:
-  stirling-config:
-  stirling-logs:
+  procstudio-data:
+  procstudio-config:
+  procstudio-logs:
