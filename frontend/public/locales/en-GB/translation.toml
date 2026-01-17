@@ -700,6 +700,11 @@ tags = "shrink,reduce,optimize"
 title = "Compress"
 desc = "Compress PDFs to reduce their file size."
 
+[home.ctps]
+tags = "ctps,carteira,trabalho,esocial,brazilian,5mb,compress"
+title = "CTPS Compression"
+desc = "Compress CTPS documents to under 5MB for Brazilian government systems"
+
 [home.unlockPDFForms]
 tags = "unlock,enable,edit"
 title = "Unlock PDF Forms"
@@ -3753,6 +3758,51 @@ failed = "An error occurred while compressing the PDF."
 [compress.selectText.1]
 _value = "Compression Settings"
 1 = "1-3 PDF compression,</br> 4-6 lite image compression,</br> 7-9 intense image compression Will dramatically reduce image quality"
+
+[ctps]
+title = "CTPS Compression"
+submit = "Compress to 5MB"
+filenamePrefix = "ctps"
+
+[ctps.files]
+placeholder = "Select your CTPS PDF document"
+
+[ctps.steps]
+settings = "Compression Settings"
+
+[ctps.results]
+title = "Compression Results"
+
+[ctps.info]
+title = "CTPS Compression"
+description = "This tool compresses your CTPS document to under 5MB, the maximum size accepted by Brazilian government systems (eSocial, etc.)."
+
+[ctps.targetSize]
+label = "Target Size"
+
+[ctps.compressionLevel]
+label = "Compression Level"
+moderate = "Moderate"
+maximum = "Maximum"
+
+[ctps.compressionLevel.hint]
+moderate = "Good balance between quality and size reduction"
+aggressive = "Aggressive compression - some quality loss"
+maximum = "Maximum compression - noticeable quality reduction"
+
+[ctps.options]
+title = "Options"
+
+[ctps.grayscale]
+label = "Convert to grayscale"
+description = "Significantly reduces file size but removes colors"
+
+[ctps.warning]
+title = "Note"
+description = "If your file cannot be compressed to under 5MB, try enabling grayscale or using a higher compression level. Very large files with many high-resolution images may not achieve the 5MB target."
+
+[ctps.error]
+failed = "Failed to compress CTPS document. The file may be too large to compress to 5MB."
 
 [decrypt]
 passwordPrompt = "This file is password-protected. Please enter the password:"

@@ -52,6 +52,9 @@ import Sign from "@app/tools/Sign";
 import AddText from "@app/tools/AddText";
 import AddImage from "@app/tools/AddImage";
 import { compressOperationConfig } from "@app/hooks/tools/compress/useCompressOperation";
+import { ctpsOperationConfig } from "@app/hooks/tools/ctps/useCTPSOperation";
+import CTPSSettings from "@app/components/tools/ctps/CTPSSettings";
+import CTPS from "@app/tools/CTPS";
 import { splitOperationConfig } from "@app/hooks/tools/split/useSplitOperation";
 import { addPasswordOperationConfig } from "@app/hooks/tools/addPassword/useAddPasswordOperation";
 import { removePasswordOperationConfig } from "@app/hooks/tools/removePassword/useRemovePasswordOperation";
@@ -853,6 +856,19 @@ export function useTranslatedToolCatalog(): TranslatedToolCatalog {
         operationConfig: compressOperationConfig,
         automationSettings: CompressSettings,
         synonyms: getSynonyms(t, "compress")
+      },
+      ctps: {
+        icon: <LocalIcon icon="badge-rounded" width="1.5rem" height="1.5rem" />,
+        name: t("home.ctps.title", "CTPS Compression"),
+        component: CTPS,
+        description: t("home.ctps.desc", "Compress CTPS documents to under 5MB for Brazilian government systems"),
+        categoryId: ToolCategoryId.RECOMMENDED_TOOLS,
+        subcategoryId: SubcategoryId.GENERAL,
+        maxFiles: 1,
+        endpoints: ["compress-pdf"],
+        operationConfig: ctpsOperationConfig,
+        automationSettings: CTPSSettings,
+        synonyms: ["ctps", "carteira de trabalho", "esocial", "brazilian", "5mb", "compress ctps"]
       },
       convert: {
         icon: <LocalIcon icon="sync-alt-rounded" width="1.5rem" height="1.5rem" />,

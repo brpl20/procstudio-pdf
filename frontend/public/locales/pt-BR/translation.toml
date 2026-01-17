@@ -678,6 +678,11 @@ tags = "reduzir,compactar,otimizar"
 title = "Comprimir"
 desc = "Comprimir PDFs para reduzir o tamanho do arquivo."
 
+[home.ctps]
+tags = "ctps,carteira,trabalho,esocial,brasileiro,5mb,comprimir"
+title = "Compressão CTPS"
+desc = "Comprima documentos CTPS para menos de 5MB para sistemas governamentais brasileiros"
+
 [home.unlockPDFForms]
 tags = "desbloquear,habilitar,editar"
 title = "Desbloquear Formulários PDF"
@@ -3731,6 +3736,51 @@ failed = "Ocorreu um erro ao comprimir o PDF."
 [compress.selectText.1]
 _value = "Configurações de Compressão:"
 1 = "1-3: Compressão do PDF,</br> 4-6: Compressão leve de Imagem,</br> 7-9: Compressão alta de Imagem. Redução considerável de qualidade da imagem."
+
+[ctps]
+title = "Compressão CTPS"
+submit = "Comprimir para 5MB"
+filenamePrefix = "ctps"
+
+[ctps.files]
+placeholder = "Selecione seu documento CTPS em PDF"
+
+[ctps.steps]
+settings = "Configurações de Compressão"
+
+[ctps.results]
+title = "Resultados da Compressão"
+
+[ctps.info]
+title = "Compressão CTPS"
+description = "Esta ferramenta comprime seu documento CTPS para menos de 5MB, o tamanho máximo aceito pelos sistemas governamentais brasileiros (eSocial, etc.)."
+
+[ctps.targetSize]
+label = "Tamanho Alvo"
+
+[ctps.compressionLevel]
+label = "Nível de Compressão"
+moderate = "Moderado"
+maximum = "Máximo"
+
+[ctps.compressionLevel.hint]
+moderate = "Bom equilíbrio entre qualidade e redução de tamanho"
+aggressive = "Compressão agressiva - alguma perda de qualidade"
+maximum = "Compressão máxima - redução perceptível de qualidade"
+
+[ctps.options]
+title = "Opções"
+
+[ctps.grayscale]
+label = "Converter para escala de cinza"
+description = "Reduz significativamente o tamanho do arquivo, mas remove as cores"
+
+[ctps.warning]
+title = "Nota"
+description = "Se seu arquivo não puder ser comprimido para menos de 5MB, tente habilitar escala de cinza ou usar um nível de compressão mais alto. Arquivos muito grandes com muitas imagens em alta resolução podem não atingir o alvo de 5MB."
+
+[ctps.error]
+failed = "Falha ao comprimir documento CTPS. O arquivo pode ser grande demais para comprimir até 5MB."
 
 [decrypt]
 passwordPrompt = "Este arquivo está protegido por senha. Insira a senha:"
