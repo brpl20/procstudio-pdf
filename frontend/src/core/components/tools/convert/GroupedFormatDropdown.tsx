@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { Stack, Text, Group, Button, Box, Popover, UnstyledButton, useMantineTheme, useMantineColorScheme } from "@mantine/core";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Z_INDEX_AUTOMATE_DROPDOWN } from "@app/styles/zIndex";
 
 interface FormatOption {
   value: string;
@@ -66,6 +67,8 @@ const GroupedFormatDropdown = ({
       disabled={disabled}
       closeOnEscape={true}
       trapFocus
+      withinPortal
+      zIndex={Z_INDEX_AUTOMATE_DROPDOWN}
     >
       <Popover.Target>
         <UnstyledButton
