@@ -5,6 +5,7 @@ import TomlBackend from '@app/i18n/tomlBackend';
 
 // Define supported languages (based on your existing translations)
 export const supportedLanguages = {
+  'pt-BR': 'Português (Brasil)',
   'en-GB': 'English',
   'ar-AR': 'العربية',
   'az-AZ': 'Azərbaycan Dili',
@@ -30,7 +31,6 @@ export const supportedLanguages = {
   'nl-NL': 'Nederlands',
   'no-NB': 'Norsk',
   'pl-PL': 'Polski',
-  'pt-BR': 'Português (Brasil)',
   'pt-PT': 'Português',
   'ro-RO': 'Română',
   'ru-RU': 'Русский',
@@ -55,7 +55,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: 'en-GB',
+    fallbackLng: 'pt-BR',
     supportedLngs: Object.keys(supportedLanguages),
     load: 'currentOnly',
     nonExplicitSupportedLngs: false,
@@ -81,7 +81,8 @@ i18n
       order: ['localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
       convertDetectedLanguage: (lng: string) => {
-        // Map en and en-US to en-GB
+        // Map pt to pt-BR, en and en-US to en-GB
+        if (lng === 'pt') return 'pt-BR';
         if (lng === 'en' || lng === 'en-US') return 'en-GB';
         return lng;
       },
@@ -165,12 +166,14 @@ export function updateSupportedLanguages(configLanguages?: string[] | null, defa
     return;
   }
 
-  // Determine fallback: prefer validDefault if in the list, then en-GB, then first valid language
+  // Determine fallback: prefer validDefault if in the list, then pt-BR, then en-GB, then first valid language
   const fallback = validDefault && validLanguages.includes(validDefault)
     ? validDefault
-    : validLanguages.includes('en-GB')
-      ? 'en-GB'
-      : validLanguages[0];
+    : validLanguages.includes('pt-BR')
+      ? 'pt-BR'
+      : validLanguages.includes('en-GB')
+        ? 'en-GB'
+        : validLanguages[0];
 
   i18n.options.supportedLngs = validLanguages;
   i18n.options.fallbackLng = fallback;

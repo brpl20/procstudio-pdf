@@ -1,8 +1,8 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "Stirling-PDF",
+  "productName": "ProcStudio-PDF",
   "version": "2.0.0",
-  "identifier": "stirling.pdf.dev",
+  "identifier": "com.procstudio.pdf",
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://localhost:5173",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "Stirling-PDF",
+        "title": "ProcStudio PDF",
         "width": 1280,
         "height": 800,
         "resizable": true,
@@ -41,7 +41,7 @@
       {
         "ext": ["pdf"],
         "name": "PDF Document",
-        "description": "Open PDF files with Stirling-PDF",
+        "description": "Abrir arquivos PDF com ProcStudio PDF",
         "role": "Editor",
         "mimeType": "application/pdf"
       }
