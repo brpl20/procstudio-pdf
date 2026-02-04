@@ -118,8 +118,8 @@ export class PDFExportService {
     }
 
     // Set metadata
-    newDoc.setCreator('Stirling PDF');
-    newDoc.setProducer('Stirling PDF');
+    newDoc.setCreator('ProcStudio PDF');
+    newDoc.setProducer('ProcStudio PDF');
     newDoc.setCreationDate(new Date());
     newDoc.setModificationDate(new Date());
 
@@ -158,8 +158,8 @@ export class PDFExportService {
     }
 
     // Set metadata
-    newDoc.setCreator('Stirling PDF');
-    newDoc.setProducer('Stirling PDF');
+    newDoc.setCreator('ProcStudio PDF');
+    newDoc.setProducer('ProcStudio PDF');
     newDoc.setCreationDate(new Date());
     newDoc.setModificationDate(new Date());
 
